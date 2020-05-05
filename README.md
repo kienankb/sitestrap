@@ -1,3 +1,4 @@
+# Sitestrap
 A dead-simple static site generator created because I wanted templating capabilities (using just the language part of [Handlebars](https://handlebarsjs.com/guide/)) but minimal dependencies.  Needs Python 3 and [pystache](https://github.com/defunkt/pystache), that's it.  For the moment, still pretty rough around the edges, but it works.
 
 After the script's in your `$PATH`, run `sitestrap.py your-site-config-here.json`.
@@ -9,8 +10,8 @@ Some explanation for the provided example site config:
     "copyDirs": ["assets"],     // a list of directories to recursively just copy to the output dir
     "pages": [
         {
-            "template": "base.mustache",    // what template should be filled out?
-            "context": "pages/home.json",   // what context should be put in the template?
+            "template": "base.mustache",    // what template should be rendered?
+            "context": "pages/home.json",   // what context should the template be rendered with?
             "outputPath": "index.html"      // where should the resulting output go?
         },
         {
@@ -22,3 +23,8 @@ Some explanation for the provided example site config:
     ]
 }
 ```
+### Todo list:
+* decent error handling
+* ...or any error handling
+* more robust handling around current working directory/filepaths
+* arg to wipe/overwrite existing output
