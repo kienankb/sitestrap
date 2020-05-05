@@ -1,0 +1,16 @@
+{
+	"outputDir": "output",
+	"copyDirs": ["assets"],
+	"pages": [
+		{
+			"template": "base.mustache",
+			"context": "pages/home.json",
+			"outputPath": "index.html"
+		},
+		{
+			"template": "base.mustache",
+			"context": "pages/test.json",
+			"outputPath": "test/index.html"
+		}
+	]
+}

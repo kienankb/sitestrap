@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example Site: {{title}}</title>
+    {{#styles}}
+    <link rel="stylesheet" type="text/css" href="{{path}}">
+    {{/styles}}
+    {{#scripts}}
+    <script type="text/javascript" src="{{path}}"></script>
+    {{/scripts}}
+</head>
+<body>
+    {{{content}}}
+</body>
+</html>

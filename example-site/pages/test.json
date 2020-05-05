@@ -1,0 +1,10 @@
+{
+    "title": "Test Page",
+    "styles": [
+        {"path": "/assets/style.css"}
+    ],
+    "scripts": [
+        {"path": "/assets/util.js"}
+    ],
+    "content": "{{> contents/test}}"
+}
