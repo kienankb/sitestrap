@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import json
 import os
 from pathlib import Path
@@ -7,17 +8,28 @@ import pystache
 import shutil
 import sys
 
-def regenerateSite(configFile):
+def regenerateSite(configFile, overwrite):
     siteConfig = json.load(open(configFile, 'r'))
     pages = siteConfig['pages']
     copyDirs = siteConfig['copyDirs']
     outputDir = Path(siteConfig['outputDir'])
     renderer = pystache.Renderer()
 
-    os.mkdir(outputDir)
+    try:
+        os.mkdir(outputDir)
+        print('created output directory')
+    except FileExistsError:
+        if not overwrite:
+            print('the output directory already exists and neither -f nor --force were specified, exiting')
+            sys.exit(1)
+        else:
+            print('removing existing output directory')
+            shutil.rmtree(outputDir)
+            os.mkdir(outputDir)
+            print('created output directory')
 
     for dir in copyDirs:
-        print('copying directory', dir)
+        print('copying directory:', dir)
         dirPath = Path(dir)
         shutil.copytree(dirPath, outputDir / dir)
 
@@ -29,11 +41,19 @@ def regenerateSite(configFile):
         renderedContent = renderer.render_path(Path(pageConfig['template']), pageContext)
         outputFile.write(renderer.render(renderedContent))
         outputFile.close()
-        print('created page', filename)
+        print('rendered page:', filename)
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print('Please provide the name of a configuration file.')
-        print('Usage: sitestrap.py site.json')
-        sys.exit(1)
-    regenerateSite(sys.argv[1])
+    parser = argparse.ArgumentParser(description='Generate a static site.')
+    parser.add_argument(
+        '-f', '--force',
+        action='store_true',
+        dest='overwrite',
+        required=False,
+        default=False,
+        help='wipe and rewrite the output directory if it exists')
+    parser.add_argument(
+        'config',
+        help='The config JSON file to be used.')
+    args = parser.parse_args()
+    regenerateSite(args.config, args.overwrite)
