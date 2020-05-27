@@ -17,7 +17,8 @@ jobs:
 
       - name: Build example site
         run: |
-          python ../sitestrap.py site.json
+          pip3 install pystache
+          python3 ../sitestrap.py site.json
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
