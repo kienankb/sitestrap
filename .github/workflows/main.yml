@@ -17,7 +17,7 @@ jobs:
 
       - name: Build example site
         run: |
-          pip3 install pystache
+          pip3 install setuptools pystache
           python3 ../sitestrap.py site.json
 
       - name: Deploy
