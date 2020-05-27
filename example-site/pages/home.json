@@ -1,10 +1,10 @@
 {
     "title": "Homepage",
     "styles": [
-        {"path": "/assets/style.css"}
+        {"path": "./assets/style.css"}
     ],
     "scripts": [
-        {"path": "/assets/util.js"}
+        {"path": "./assets/util.js"}
     ],
     "content": "{{> contents/home}}"
 }
